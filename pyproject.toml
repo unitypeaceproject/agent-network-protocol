@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-network-protocol"
+version = "0.1.0"
+description = "A protocol for AI agents to discover, verify, and collaborate"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Unity Peace Project", email = "project@unity-peace.org" }
+]
+keywords = ["ai", "agents", "collaboration", "protocol", "trust"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "pydantic>=2.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.27.0",
+    "httpx>=0.27.0",
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "cryptography>=42.0.0",
+    "aiosqlite>=0.20.0",
+    "pynacl>=1.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "black>=24.0.0",
+    "ruff>=0.2.0",
+    "mypy>=1.8.0",
+]
+
+[project.scripts]
+anp = "anp.cli.main:app"
+
+[project.urls]
+Homepage = "https://github.com/unitypeaceproject/agent-network-protocol"
+Documentation = "https://github.com/unitypeaceproject/agent-network-protocol#readme"
+Repository = "https://github.com/unitypeaceproject/agent-network-protocol"
+
+[tool.hatch.build.targets.wheel]
+packages = ["anp"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
