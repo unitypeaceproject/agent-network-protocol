@@ -12,7 +12,15 @@ class Database:
     """SQLite database wrapper with connection pooling and migrations."""
     
     def __init__(self, db_path: Optional[str] = None):
-        self.db_path = db_path or settings.database_path
+        # Extract path from database_url (sqlite+aiosqlite:///path -> path)
+        if db_path:
+            self.db_path = db_path
+        else:
+            url = settings.database_url
+            if ":///" in url:
+                self.db_path = url.split(":///")[1]
+            else:
+                self.db_path = "anp.db"
         self._ensure_directory()
         self._run_migrations()
     
